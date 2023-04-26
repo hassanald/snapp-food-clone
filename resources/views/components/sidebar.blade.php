@@ -6,47 +6,29 @@
     </svg>
 </button>
 
-<aside id="sidebar-multi-level-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
+<aside id="sidebar-multi-level-sidebar" class="w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
     <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
         <a href="/">
             <h1 class="bg-pink-600 text-white rounded-lg text-center py-4 px-3 my-6 text-2xl font-extrabold">Snapp! Food</h1>
         </a>
         <ul class="space-y-2 font-medium">
             <li>
-                <button type="button" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-rest" data-collapse-toggle="dropdown-rest">
+                <a href="{{route('rest.cat.index')}}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6z" />
                     </svg>
-                    <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>Restaurant Category</span>
-                    <svg sidebar-toggle-item- class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                </button>
-                <ul id="dropdown-rest" class="hidden py-2 space-y-2">
-                    <li>
-                        <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">New</a>
-                    </li>
-                    <li>
-                        <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Lists</a>
-                    </li>
-                </ul>
+                    <span class="flex-1 ml-3 whitespace-nowrap">Restaurant Category</span>
+                </a>
             </li>
             <li>
-                <button type="button" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-foods" data-collapse-toggle="dropdown-foods">
+                <a href="{{route('food.cat.index')}}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6z" />
                     </svg>
-                    <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>Foods Category</span>
-                    <svg sidebar-toggle-item class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                </button>
-                <ul id="dropdown-foods" class="hidden py-2 space-y-2">
-                    <li>
-                        <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">New</a>
-                    </li>
-                    <li>
-                        <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Lists</a>
-                    </li>
-                </ul>
+                    <span class="flex-1 ml-3 whitespace-nowrap">Food Category</span>
+                </a>
             </li>
             <li>
                 <button type="button" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-discount" data-collapse-toggle="dropdown-discount">
@@ -106,53 +88,3 @@
         </ul>
     </div>
 </aside>
-
-<div class="p-4 sm:ml-64">
-    <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
-        <div class="grid grid-cols-3 gap-4 mb-4">
-            <div class="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
-                <p class="text-2xl text-gray-400 dark:text-gray-500">+</p>
-            </div>
-            <div class="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
-                <p class="text-2xl text-gray-400 dark:text-gray-500">+</p>
-            </div>
-            <div class="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
-                <p class="text-2xl text-gray-400 dark:text-gray-500">+</p>
-            </div>
-        </div>
-        <div class="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
-            <p class="text-2xl text-gray-400 dark:text-gray-500">+</p>
-        </div>
-        <div class="grid grid-cols-2 gap-4 mb-4">
-            <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                <p class="text-2xl text-gray-400 dark:text-gray-500">+</p>
-            </div>
-            <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                <p class="text-2xl text-gray-400 dark:text-gray-500">+</p>
-            </div>
-            <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                <p class="text-2xl text-gray-400 dark:text-gray-500">+</p>
-            </div>
-            <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                <p class="text-2xl text-gray-400 dark:text-gray-500">+</p>
-            </div>
-        </div>
-        <div class="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
-            <p class="text-2xl text-gray-400 dark:text-gray-500">+</p>
-        </div>
-        <div class="grid grid-cols-2 gap-4">
-            <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                <p class="text-2xl text-gray-400 dark:text-gray-500">+</p>
-            </div>
-            <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                <p class="text-2xl text-gray-400 dark:text-gray-500">+</p>
-            </div>
-            <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                <p class="text-2xl text-gray-400 dark:text-gray-500">+</p>
-            </div>
-            <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                <p class="text-2xl text-gray-400 dark:text-gray-500">+</p>
-            </div>
-        </div>
-    </div>
-</div>

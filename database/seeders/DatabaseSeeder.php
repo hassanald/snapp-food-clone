@@ -3,6 +3,10 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Category;
+use App\Models\Discount;
+use App\Models\Food;
+use App\Models\Restaurant;
 use App\Models\Role;
 use Illuminate\Database\Seeder;
 
