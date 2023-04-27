@@ -14,7 +14,8 @@ class DiscountController extends Controller
      */
     public function index()
     {
-        //
+        $discounts = Discount::paginate(5);
+        return view('admin.discount.index' , compact('discounts'));
     }
 
     /**
@@ -30,38 +31,46 @@ class DiscountController extends Controller
      */
     public function store(StoreDiscountRequest $request)
     {
-        //
+        Discount::create($request->all());
+        return redirect()->back()->with('success' , 'Discount created successfully!');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Discount $discount)
+    public function show( $id)
     {
-        //
+
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Discount $discount)
+    public function edit($id)
     {
-        //
+        $discount = Discount::findOrFail($id);
+
+        return view('admin.discount.edit' , compact('discount'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateDiscountRequest $request, Discount $discount)
+    public function update(UpdateDiscountRequest $request, $id)
     {
-        //
+        $discount = Discount::findOrFail($id);
+        $discount->update($request->all());
+
+        return redirect()->to(route('discount.index'))->with('success' , 'Discount updated successfully!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Discount $discount)
+    public function destroy( $id)
     {
-        //
+        $discount = Discount::findOrFail($id);
+        $discount->delete();
+        return redirect()->back()->with('success' , 'Discount deleted successfully!');
     }
 }

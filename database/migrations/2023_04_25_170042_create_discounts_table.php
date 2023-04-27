@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('title')->unique();
             $table->string('code')->unique();
             $table->float('discount_percent', 3 ,0);
+            $table->dateTime('expired_at');
             $table->timestamps();
         });
     }

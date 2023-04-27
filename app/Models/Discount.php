@@ -6,13 +6,14 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Str;
 
 class Discount extends Model
 {
     use HasFactory;
 
-    protected $fillable = [ 'title' , 'code' , 'type' , 'expired_at' ];
+    protected $fillable = [ 'title' , 'code' , 'discount_percent' , 'expired_at' ];
 
     protected function title(): Attribute
     {
@@ -22,8 +23,8 @@ class Discount extends Model
         );
     }
 
-    public function food(): BelongsTo
+    public function food(): BelongsToMany
     {
-        return $this->belongsTo(Food::class);
+        return $this->belongsToMany(Food::class);
     }
 }

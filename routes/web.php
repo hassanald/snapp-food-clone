@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\Category\FoodCategoryController;
 use App\Http\Controllers\Admin\Category\RestaurantCategoryController;
 use App\Http\Controllers\Admin\Category\RestCategoryController;
+use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Role;
 use Illuminate\Support\Facades\Route;
@@ -50,6 +51,8 @@ Route::middleware('auth')->group(function () {
                 'destroy' => 'food.cat.destroy',
             ]
         ]);
+        //Discount
+        Route::resource('/discount' , DiscountController::class);
     });
 });
 

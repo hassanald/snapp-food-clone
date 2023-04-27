@@ -32,13 +32,16 @@
     {{--            @endif--}}
             </div>
             <!-- Page Content -->
-            <main class="p-5 mt-16 w-full">
+            <main class="w-full">
+                {{--Navbar--}}
+                <x-navbar></x-navbar>
 
                 {{--Messages--}}
                 <x-messages></x-messages>
 
-
-                {{ $slot }}
+                <div class="p-6">
+                    {{ $slot }}
+                </div>
             </main>
 
         </div>
