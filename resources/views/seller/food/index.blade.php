@@ -66,7 +66,7 @@
                             </td>
                             <td class="px-6 py-4 flex justify-center gap-2">
                                 <a href="{{route('seller.food.edit' , $food->id)}}" class="bg-yellow-500 text-white px-3 py-2 rounded-lg">Edit</a>
-                                <form method="post" action="#">
+                                <form method="post" action="{{route('seller.food.destroy' , $food->id)}}">
                                     @method('delete')
                                     @csrf
                                     <button class="bg-red-500 text-white px-3 py-2 rounded-lg">Delete</button>

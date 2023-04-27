@@ -41,7 +41,7 @@ class FoodController extends Controller
     public function store(StoreFoodRequest $request)
     {
         Food::create($request->all());
-        return redirect()->back()->with('success' , 'Food Created successfully!');
+        return redirect()->to(route('seller.food.index'))->with('success' , 'Food Created successfully!');
     }
 
     /**
@@ -58,21 +58,31 @@ class FoodController extends Controller
     public function edit($id)
     {
         $food = Food::with('restaurant' , 'discount' , 'category' , 'images')->findOrFail($id);
+        $discounts = Discount::all();
+        $categories = FoodCategory::all();
+        $restaurants = Restaurant::where('user_id' , auth()->user()->id)->get();
+        return view('seller.food.edit' , compact('food' , 'discounts' , 'categories' , 'restaurants'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateFoodRequest $request, Food $food)
+    public function update(UpdateFoodRequest $request, $id)
     {
-        //
+        $food = Food::findOrFail($id);
+        $food->update($request->all());
+
+        return redirect()->to(route('seller.food.index'))->with('success' , 'Food Updated successfully!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Food $food)
+    public function destroy($id)
     {
-        //
+        $food = Food::findOrFail($id);
+        $food->delete();
+
+        return redirect()->back()->with('success' , 'Food Deleted successfully!');
     }
 }
