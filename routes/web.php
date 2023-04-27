@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\Category\RestaurantCategoryController;
 use App\Http\Controllers\Admin\Category\RestCategoryController;
 use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Seller\SellerController;
 use App\Models\Role;
 use Illuminate\Support\Facades\Route;
 
@@ -53,6 +54,11 @@ Route::middleware('auth')->group(function () {
         ]);
         //Discount
         Route::resource('/discount' , DiscountController::class);
+    });
+    //Seller
+    Route::prefix('/seller')->middleware('role:'.Role::SELLER)->group(function (){
+        Route::get('' , [SellerController::class , 'index'])->name('seller.index');
+
     });
 });
 

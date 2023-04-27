@@ -52,6 +52,7 @@ class User extends Authenticatable
     public function getRedirectRoute(){
         return match ($this->role_id){
             Role::ADMIN => route('admin.index'),
+            Role::SELLER => route('seller.index'),
         };
     }
 
