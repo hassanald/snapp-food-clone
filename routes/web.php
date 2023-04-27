@@ -5,6 +5,8 @@ use App\Http\Controllers\Admin\Category\RestaurantCategoryController;
 use App\Http\Controllers\Admin\Category\RestCategoryController;
 use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Seller\FoodController;
+use App\Http\Controllers\Seller\RestaurantController;
 use App\Http\Controllers\Seller\SellerController;
 use App\Models\Role;
 use Illuminate\Support\Facades\Route;
@@ -22,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->middleware('guest');
 
 //Route::get('/dashboard', function () {
 //    return view('dashboard');
@@ -58,7 +60,28 @@ Route::middleware('auth')->group(function () {
     //Seller
     Route::prefix('/seller')->middleware('role:'.Role::SELLER)->group(function (){
         Route::get('' , [SellerController::class , 'index'])->name('seller.index');
-
+        //Restaurant
+        Route::resource('/restaurant' , RestaurantController::class , [
+            'names' => [
+                'index' => 'seller.rest.index',
+                'create' => 'seller.rest.create',
+                'store' => 'seller.rest.store',
+                'edit' => 'seller.rest.edit',
+                'update' => 'seller.rest.update',
+                'destroy' => 'seller.rest.destroy',
+            ]
+        ]);
+        //Food
+        Route::resource('/food' , FoodController::class , [
+            'names' => [
+                'index' => 'seller.food.index',
+                'create' => 'seller.food.create',
+                'store' => 'seller.food.store',
+                'edit' => 'seller.food.edit',
+                'update' => 'seller.food.update',
+                'destroy' => 'seller.food.destroy',
+            ]
+        ]);
     });
 });
 

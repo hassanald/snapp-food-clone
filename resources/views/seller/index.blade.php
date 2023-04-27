@@ -1,3 +1,3 @@
-<x-seller-layout>
+<x-seller>
     Seller
-</x-seller-layout>
+</x-seller>

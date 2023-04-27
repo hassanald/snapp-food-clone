@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\SellerAuth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use App\Rules\Phone;
@@ -21,7 +22,7 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+        return view('seller-auth.register');
     }
 
     /**
@@ -42,6 +43,7 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
+            'role_id' => Role::SELLER,
             'password' => Hash::make($request->password),
         ]);
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\Phone;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreRestaurantRequest extends FormRequest
@@ -11,7 +12,7 @@ class StoreRestaurantRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +23,11 @@ class StoreRestaurantRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|unique:restaurants,name',
+            'phone' => ['required' , 'unique:restaurants,phone' , 'regex:/^[0-9]{9}/'],
+            'address' => 'required|min:10|max:100',
+            'acc_number' => 'required|digits:16|unique:restaurants,acc_number',
+            'restaurant_category_id' => 'required',
         ];
     }
 }

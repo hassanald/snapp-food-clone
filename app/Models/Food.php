@@ -13,21 +13,23 @@ class Food extends Model
 {
     use HasFactory;
 
-    protected $fillable = [ 'name' , 'raw_materials' , 'price' , 'discount_id' , 'is_party' , 'restaurant_id'];
+    protected $fillable = [ 'name' , 'raw_materials' , 'price' , 'discount_id' , 'is_party' , 'food_category_id' , 'restaurant_id'];
+
+    protected $table = 'foods';
 
     public function restaurant(): BelongsTo
     {
         return $this->belongsTo(Restaurant::class);
     }
 
-    public function discount(): HasOne
+    public function discount(): BelongsTo
     {
-        return $this->hasOne(Discount::class);
+        return $this->belongsTo(Discount::class);
     }
 
-    public function category(): HasOne
+    public function category(): BelongsTo
     {
-        return $this->hasOne(FoodCategory::class);
+        return $this->belongsTo(FoodCategory::class , 'food_category_id');
     }
 
     public function images(): MorphToMany

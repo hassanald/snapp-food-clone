@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
 class FoodCategory extends Model
@@ -14,9 +15,9 @@ class FoodCategory extends Model
 
     protected $fillable = ['title'];
 
-    public function foods(): BelongsToMany
+    public function foods(): HasMany
     {
-        return $this->belongsToMany(Food::class);
+        return $this->hasMany(Food::class);
     }
 
     protected function title(): Attribute

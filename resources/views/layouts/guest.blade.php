@@ -15,8 +15,11 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans text-pink-400 antialiased">
+        {{--Navbar--}}
+        <x-guest-navbar></x-guest-navbar>
+
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
-            <h1 class="text-pink-600 text-center text-4xl font-extrabold">Snapp!<br>Food</h1>
+            <x-messages></x-messages>
             <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
                 {{ $slot }}
             </div>
