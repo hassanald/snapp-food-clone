@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Seller;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreRestaurantRequest;
 use App\Http\Requests\UpdateRestaurantRequest;
+use App\Models\Food;
 use App\Models\Restaurant;
 use App\Models\RestaurantCategory;
 
@@ -85,5 +86,12 @@ class RestaurantController extends Controller
         $restaurant->delete();
 
         return redirect()->back()->with('success' , 'Restaurant Deleted successfully!');
+    }
+
+    public function foods($id){
+        $foods = Food::with('restaurant' , 'discount' , 'category' , 'images')
+            ->where('restaurant_id' , $id)->paginate(5);
+
+        return view('seller.restaurant.foods' , compact('foods'));
     }
 }

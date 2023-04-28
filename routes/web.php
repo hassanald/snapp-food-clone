@@ -71,6 +71,7 @@ Route::middleware('auth')->group(function () {
                 'destroy' => 'seller.rest.destroy',
             ]
         ]);
+        Route::get('/restaurant/{id}/foods' , [RestaurantController::class , 'foods'])->name('seller.rest.foods');
         //Food
         Route::resource('/food' , FoodController::class , [
             'names' => [

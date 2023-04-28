@@ -26,6 +26,7 @@ class UpdateFoodRequest extends FormRequest
             'raw_materials' => 'required|min:5|max:100',
             'price' => 'required|numeric',
             'food_category_id' => 'required',
+            'discount_id' => 'nullable',
             'restaurant_id' => 'required',
         ];
     }

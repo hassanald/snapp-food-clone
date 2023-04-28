@@ -28,7 +28,7 @@
                 <div class="mt-6">
                     <x-input-label for="discount_id" :value="__('Discount (optional)')" />
                     <select class="border-gray-300 mt-1 focus:border-pink-500 focus:ring-pink-500 rounded-md shadow-sm" name="discount_id" id="discount_id">
-                        <option value="null">Please select a discount</option>
+                        <option value="{{null}}">Please select a discount</option>
                         @foreach($discounts as $discount)
                             <option value="{{$discount->id}}" <?= ($food->discount && $food->discount->id == $discount->id) ? 'selected' : '' ?>>
                                 {{$discount->title}} : {{$discount->discount_percent}} %

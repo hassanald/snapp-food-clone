@@ -1,8 +1,8 @@
 <x-seller>
     <div class="bg-gray-200 shadow-xl w-full p-6 rounded-lg">
-        <h2 class="text-xl mb-6 font-semibold">Restaurant lists</h2>
+        <h2 class="text-xl mb-6 font-semibold">Foods lists</h2>
         @if(count($foods) === 0)
-            <p class="bg-white px-3 py-2 text-center rounded-lg font-semibold">There is no Restaurant!</p>
+            <p class="bg-white px-3 py-2 text-center rounded-lg font-semibold">There is no Foods!</p>
         @else
             <div class="relative overflow-x-auto rounded-lg shadow-lg w-full mx-auto">
                 <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">

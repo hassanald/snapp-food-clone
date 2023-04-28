@@ -72,7 +72,7 @@ class FoodController extends Controller
         $food = Food::findOrFail($id);
         $food->update($request->all());
 
-        return redirect()->to(route('seller.food.index'))->with('success' , 'Food Updated successfully!');
+        return redirect()->back()->with('success' , 'Food Updated successfully!');
     }
 
     /**
