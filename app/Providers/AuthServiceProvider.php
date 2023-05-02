@@ -28,7 +28,7 @@ class AuthServiceProvider extends ServiceProvider
             return $user->role_id === Role::SELLER;
         });
 
-        Gate::define('seller-all-capability' , function (User $user){
+        Gate::define('seller-all-capability' , function (){
             return count(auth()->user()->restaurants) !== 0;
         });
     }

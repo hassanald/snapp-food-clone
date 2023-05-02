@@ -30,7 +30,7 @@ Route::get('/', function () {
 //    return view('dashboard');
 //})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth' )->group(function () {
     //Admin
     Route::prefix('/admin')->middleware('role:'. Role::ADMIN)->group(function (){
         Route::get('' , [\App\Http\Controllers\Admin\AdminController::class , 'index'])->name('admin.index');

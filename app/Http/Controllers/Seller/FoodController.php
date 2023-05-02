@@ -9,6 +9,7 @@ use App\Models\Discount;
 use App\Models\Food;
 use App\Models\FoodCategory;
 use App\Models\Restaurant;
+use Illuminate\Support\Facades\Gate;
 
 class FoodController extends Controller
 {
@@ -17,6 +18,9 @@ class FoodController extends Controller
      */
     public function index()
     {
+        if (! Gate::allows('seller-all-capability')) {
+            abort(403);
+        }
         $restaurantsId = Restaurant::where('user_id' , auth()->user()->id)->pluck('id')->toArray();
         $foods = Food::with('restaurant' , 'discount' , 'category' , 'images')
             ->whereIn('restaurant_id' , $restaurantsId)->paginate(5);
@@ -29,6 +33,9 @@ class FoodController extends Controller
      */
     public function create()
     {
+        if (! Gate::allows('seller-all-capability')) {
+            abort(403);
+        }
         $discounts = Discount::all();
         $categories = FoodCategory::all();
         $restaurants = Restaurant::where('user_id' , auth()->user()->id)->get();
@@ -40,6 +47,9 @@ class FoodController extends Controller
      */
     public function store(StoreFoodRequest $request)
     {
+        if (! Gate::allows('seller-all-capability')) {
+            abort(403);
+        }
         Food::create($request->all());
         return redirect()->to(route('seller.food.index'))->with('success' , 'Food Created successfully!');
     }
@@ -57,6 +67,9 @@ class FoodController extends Controller
      */
     public function edit($id)
     {
+        if (! Gate::allows('seller-all-capability')) {
+            abort(403);
+        }
         $food = Food::with('restaurant' , 'discount' , 'category' , 'images')->findOrFail($id);
         $discounts = Discount::all();
         $categories = FoodCategory::all();
@@ -69,6 +82,9 @@ class FoodController extends Controller
      */
     public function update(UpdateFoodRequest $request, $id)
     {
+        if (! Gate::allows('seller-all-capability')) {
+            abort(403);
+        }
         $food = Food::findOrFail($id);
         $food->update($request->all());
 
@@ -80,6 +96,9 @@ class FoodController extends Controller
      */
     public function destroy($id)
     {
+        if (! Gate::allows('seller-all-capability')) {
+            abort(403);
+        }
         $food = Food::findOrFail($id);
         $food->delete();
 

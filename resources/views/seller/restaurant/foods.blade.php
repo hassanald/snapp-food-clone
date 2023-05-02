@@ -1,6 +1,6 @@
 <x-seller>
     <div class="bg-gray-200 shadow-xl w-full p-6 rounded-lg">
-        <h2 class="text-xl mb-6 font-semibold">{{$foods[0]->restaurant->name}}'s foods list</h2>
+        <h2 class="text-xl mb-6 font-semibold">{{$foods[0]->restaurant->name ?? ''}}'s foods list</h2>
         @if(count($foods) === 0)
             <p class="bg-white px-3 py-2 text-center rounded-lg font-semibold">There is no Foods!</p>
         @else
