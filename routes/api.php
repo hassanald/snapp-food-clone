@@ -22,7 +22,7 @@ Route::middleware('auth:sanctum')->group(function () {
     //Logout
     Route::post('/logout' , [\App\Http\Controllers\Api\AuthController::class , 'logout']);
     //Restaurants
-    Route::get('/restaurants' , function (){
-        return \App\Models\Restaurant::all();
-    });
+    Route::get('/restaurant' , [\App\Http\Controllers\Api\RestaurantController::class , 'index']);
+    Route::get('/restaurant/{id}' , [\App\Http\Controllers\Api\RestaurantController::class , 'show']);
+    Route::get('/restaurant/{id}/foods' , [\App\Http\Controllers\Api\RestaurantController::class , 'foods']);
 });
