@@ -25,4 +25,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/restaurant' , [\App\Http\Controllers\Api\RestaurantController::class , 'index']);
     Route::get('/restaurant/{id}' , [\App\Http\Controllers\Api\RestaurantController::class , 'show']);
     Route::get('/restaurant/{id}/foods' , [\App\Http\Controllers\Api\RestaurantController::class , 'foods']);
+    //Foods
+    Route::get('/food' , [\App\Http\Controllers\Api\FoodController::class , 'index']);
+    Route::get('/food/{id}' , [\App\Http\Controllers\Api\FoodController::class , 'show']);
+
 });
