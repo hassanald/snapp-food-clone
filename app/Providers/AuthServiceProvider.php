@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
+use App\Models\Address;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -30,6 +31,10 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('seller-all-capability' , function (){
             return count(auth()->user()->restaurants) !== 0;
+        });
+
+        Gate::define('can-update-address' , function (Address $address){
+            return $address->user_id !== auth()->user()->id;
         });
     }
 }

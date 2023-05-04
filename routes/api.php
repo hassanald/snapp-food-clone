@@ -28,5 +28,11 @@ Route::middleware('auth:sanctum')->group(function () {
     //Foods
     Route::get('/food' , [\App\Http\Controllers\Api\FoodController::class , 'index']);
     Route::get('/food/{id}' , [\App\Http\Controllers\Api\FoodController::class , 'show']);
+    //Address
+    Route::get('/address' , [\App\Http\Controllers\Api\AddressController::class , 'index']);
+    Route::post('/address' , [\App\Http\Controllers\Api\AddressController::class , 'store']);
+    Route::patch('/address/{address}' , [\App\Http\Controllers\Api\AddressController::class , 'update']);
+    //User
+    Route::patch('/user/{user}' , [\App\Http\Controllers\Api\UserController::class , 'update']);
 
 });

@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
@@ -47,9 +48,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function role(): HasOne
+    public function role(): BelongsTo
     {
-        return $this->hasOne(Role::class);
+        return $this->belongsTo(Role::class);
     }
 
     public function getRedirectRoute(){
@@ -67,5 +68,10 @@ class User extends Authenticatable
     public function restaurants(): HasMany
     {
         return $this->hasMany(Restaurant::class);
+    }
+
+    public function addresses(): HasMany
+    {
+        return $this->hasMany(Address::class);
     }
 }
