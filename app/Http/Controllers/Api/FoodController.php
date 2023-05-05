@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\FoodResource;
 use App\Models\Food;
+use Exception;
 use Illuminate\Http\Request;
 
 class FoodController extends Controller
@@ -15,7 +16,11 @@ class FoodController extends Controller
     }
 
     public function show($id){
-        $food = Food::with('discount' , 'category' , 'images' , 'restaurant')->findOrFail($id);
+        try {
+            $food = Food::with('discount' , 'category' , 'images' , 'restaurant')->findOrFail($id);
+        } catch(Exception $exception) {        // Skipped, no exception
+            return "Food does not exist";
+        }
         return FoodResource::make($food);
     }
 }

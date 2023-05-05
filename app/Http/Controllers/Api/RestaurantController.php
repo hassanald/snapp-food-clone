@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 
 class RestaurantController extends Controller
 {
-    public function index(Request $request){
+    public function index(){
         $restaurants = Restaurant::with( 'user' , 'category' , 'foods' , 'images')
             ->when(\request()->filled('type') , function ($query){
                 $query->where('restaurant_category_id' , '=' , \request('type'));

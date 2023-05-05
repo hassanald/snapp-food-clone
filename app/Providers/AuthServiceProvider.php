@@ -33,8 +33,8 @@ class AuthServiceProvider extends ServiceProvider
             return count(auth()->user()->restaurants) !== 0;
         });
 
-        Gate::define('can-update-address' , function (Address $address){
-            return $address->user_id !== auth()->user()->id;
+        Gate::define('can-update-address' , function ($user , $address){
+            return $address->user_id !== $user->id;
         });
     }
 }
