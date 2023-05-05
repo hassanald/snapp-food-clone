@@ -7,12 +7,16 @@ use App\Http\Resources\FoodResource;
 use App\Http\Resources\RestaurantResource;
 use App\Models\Food;
 use App\Models\Restaurant;
+use Exception;
 use Illuminate\Http\Request;
 
 class RestaurantController extends Controller
 {
-    public function index(){
-        $restaurants = Restaurant::with('user' , 'category' , 'foods' , 'images')->get();
+    public function index(Request $request){
+        $restaurants = Restaurant::with( 'user' , 'category' , 'foods' , 'images')
+            ->when(\request()->filled('type') , function ($query){
+                $query->where('restaurant_category_id' , '=' , \request('type'));
+            })->get();
         return RestaurantResource::collection($restaurants);
     }
 
@@ -26,4 +30,5 @@ class RestaurantController extends Controller
             ->where('restaurant_id' , $id)->get();
         return FoodResource::collection($foods);
     }
+
 }
