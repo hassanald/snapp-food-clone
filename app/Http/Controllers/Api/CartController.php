@@ -11,6 +11,7 @@ use App\Models\CartItem;
 use App\Models\Food;
 use App\Models\OrderStatus;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class CartController extends Controller
 {
@@ -20,7 +21,9 @@ class CartController extends Controller
     public function index()
     {
         $carts = Cart::with('restaurant' , 'status' , 'cartItems.food.discount')
-            ->where('user_id' , auth()->user()->id)->get();
+            ->where('user_id' , auth()->user()->id)
+            ->where('status_id' , OrderStatus::getUnpaidId())
+            ->get();
         return CartResource::collection($carts);
     }
 
@@ -92,7 +95,10 @@ class CartController extends Controller
      */
     public function show(Cart $cart)
     {
-        //
+        if (!Gate::allows('can-view-cart' ,  $cart )){
+            return response()->json(['message' => 'Forbidden'] , 403);
+        }
+        return CartResource::make($cart->load('restaurant' , 'status' , 'cartItems.food.discount'));
     }
 
     /**
@@ -108,7 +114,12 @@ class CartController extends Controller
      */
     public function update(UpdateCartRequest $request, Cart $cart)
     {
-        //
+        if (!Gate::allows('can-update-cart' ,  $cart )){
+            return response()->json(['message' => 'Forbidden'] , 403);
+        }
+
+        $cart->cartItems()->update($request->validated());
+        return response()->noContent();
     }
 
     /**
@@ -117,5 +128,21 @@ class CartController extends Controller
     public function destroy(Cart $cart)
     {
         //
+    }
+
+    public function pay(Cart $cart)
+    {
+        if (!Gate::allows('can-update-cart' ,  $cart )){
+            return response()->json(['message' => 'Forbidden'] , 403);
+        }
+
+        if ($cart->status_id !== OrderStatus::getUnpaidId()){
+            return response()->json(['message' => 'Bad request'] , 403);
+        }
+
+        $cart->update([
+            'status_id' => OrderStatus::getPendingId()
+        ]);
+        return response()->noContent();
     }
 }

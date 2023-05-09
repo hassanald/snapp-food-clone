@@ -36,5 +36,13 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('can-update-address' , function ($user , $address){
             return $address->user_id !== $user->id;
         });
+
+        Gate::define('can-update-cart' , function ($user , $cart){
+            return $cart->user_id === $user->id;
+        });
+
+        Gate::define('can-view-cart' , function ($user , $cart){
+            return $cart->user_id === $user->id;
+        });
     }
 }
