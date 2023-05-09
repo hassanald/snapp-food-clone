@@ -26,6 +26,11 @@ class Restaurant extends Model
         );
     }
 
+    public function cart(): HasOne
+    {
+        return $this->hasOne(Cart::class);
+    }
+
     public function foods(): HasMany
     {
         return $this->hasMany(Food::class);

@@ -34,5 +34,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::patch('/address/{address}' , [\App\Http\Controllers\Api\AddressController::class , 'update']);
     //User
     Route::patch('/user/{user}' , [\App\Http\Controllers\Api\UserController::class , 'update']);
+    //Cart
+    Route::get('/carts' , [\App\Http\Controllers\Api\CartController::class , 'index']);
+    Route::post('/carts/add' , [\App\Http\Controllers\Api\CartController::class , 'store']);
 
 });
