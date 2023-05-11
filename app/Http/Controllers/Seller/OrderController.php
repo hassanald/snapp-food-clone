@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Seller;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
+use App\Mail\ChangeStatus;
 use App\Models\Order;
 use App\Models\OrderStatus;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
@@ -95,6 +97,14 @@ class OrderController extends Controller
         $order->update([
                 'status_id' => $request->get('status_id'
             )]);
+
+        $mailData = [
+            'title' => 'Your order status is changed',
+            'order' => $order
+        ];
+
+        Mail::to($order->user->email)->send(new ChangeStatus($mailData));
+
         return redirect()->back()->with('success' , 'Order has been updated successfully!');
     }
 }

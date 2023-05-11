@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCartRequest;
 use App\Http\Requests\UpdateCartRequest;
 use App\Http\Resources\CartResource;
+use App\Mail\OrderRegistered;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Food;
@@ -14,6 +15,7 @@ use App\Models\OrderItem;
 use App\Models\OrderStatus;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Mail;
 
 class CartController extends Controller
 {
@@ -127,6 +129,9 @@ class CartController extends Controller
 
         if ($cartItem->count + $request->validated('count') <= 0){
             $cartItem->delete();
+            if ($cart->cartItems()->count() === 0){
+                $cart->delete();
+            }
             return response()->noContent();
         }
 
@@ -170,6 +175,13 @@ class CartController extends Controller
 
         $cart->cartItems()->delete();
         $cart->delete();
+
+        $mailData = [
+            'title' => 'Your order has been registered successfully.',
+            'order' => $order,
+        ];
+
+        Mail::to(auth()->user()->email)->send(new OrderRegistered($mailData));
 
         return response()->json(['message' => 'Your order has been registered!']);
     }
