@@ -42,8 +42,8 @@ class OrderStatus extends Model
         return $status->id;
     }
 
-    public function carts(): HasMany
+    public function orders(): HasMany
     {
-        return $this->hasMany(Cart::class);
+        return $this->hasMany(Order::class);
     }
 }
