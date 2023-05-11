@@ -156,6 +156,7 @@ class CartController extends Controller
             'status_id' => OrderStatus::getPendingId(),
             'price' => $cart->cartItems()->sum('price'),
             'address_id' => $address->first()->id ?? auth()->user()->addresses->pluck('id')->first(),
+            'restaurant_id' => $cart->restaurant_id,
         ]);
 
         $cart->cartItems->map(function ($orderItem) use ($order){

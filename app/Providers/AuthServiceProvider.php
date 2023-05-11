@@ -48,5 +48,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('can-view-cart' , function ($user , $cart){
             return $cart->user_id === $user->id;
         });
+
+        Gate::define('can-change-status' , function ($user , $order){
+            return $order->restaurant->user->id === $user->id;
+        });
     }
 }

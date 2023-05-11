@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\Category\RestCategoryController;
 use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Seller\FoodController;
+use App\Http\Controllers\Seller\OrderController;
 use App\Http\Controllers\Seller\RestaurantController;
 use App\Http\Controllers\Seller\SellerController;
 use App\Models\Role;
@@ -83,6 +84,19 @@ Route::middleware('auth' )->group(function () {
                 'destroy' => 'seller.food.destroy',
             ]
         ]);
+        //Order
+        Route::get('/order/archive' , [OrderController::class , 'archive'])->name('seller.order.archive');
+        Route::resource('/order' , OrderController::class , [
+            'names' => [
+                'index' => 'seller.order.index',
+                'create' => 'seller.order.create',
+                'store' => 'seller.order.store',
+                'edit' => 'seller.order.edit',
+                'update' => 'seller.order.update',
+                'destroy' => 'seller.order.destroy',
+            ]
+        ]);
+        Route::put('/order/{order}/status' , [OrderController::class , 'changeStatus'])->name('seller.order.status');
     });
 });
 

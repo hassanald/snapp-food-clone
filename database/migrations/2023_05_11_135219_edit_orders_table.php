@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::table('orders' , function (Blueprint $table){
             $table->dropColumn('address');
             $table->foreignId('address_id')->after('price')->constrained()->noActionOnDelete();
+            $table->foreignId('restaurant_id')->after('address_id')->constrained()->cascadeOnDelete();
         });
     }
 

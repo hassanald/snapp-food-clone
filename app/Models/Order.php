@@ -16,6 +16,7 @@ class Order extends Model
         'status_id',
         'price',
         'address_id',
+        'restaurant_id',
     ];
 
     public function user(): BelongsTo
@@ -31,5 +32,15 @@ class Order extends Model
     public function orderItems(): HasMany
     {
         return $this->hasMany(OrderItem::class);
+    }
+
+    public function address(): BelongsTo
+    {
+        return $this->belongsTo(Address::class);
+    }
+
+    public function restaurant(): BelongsTo
+    {
+        return $this->belongsTo(Restaurant::class);
     }
 }

@@ -12,10 +12,6 @@ class OrderStatus extends Model
 
     protected $fillable = [ 'title' , 'description'];
 
-    public static function getUnpaidId(){
-        $status = OrderStatus::where('title' , 'unpaid')->first();
-        return $status->id;
-    }
 
     public static function getRejectId(){
         $status = OrderStatus::where('title' , 'reject')->first();
