@@ -9,6 +9,8 @@ use App\Http\Resources\CartResource;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Food;
+use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\OrderStatus;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
@@ -147,8 +149,27 @@ class CartController extends Controller
         if (!Gate::allows('can-update-cart' ,  $cart )){
             return response()->json(['message' => 'Forbidden'] , 403);
         }
+        $address = auth()->user()->addresses->filter(fn($address) => $address->is_current === 1);
 
+        $order = Order::create([
+            'user_id' => auth()->user()->id,
+            'status_id' => OrderStatus::getPendingId(),
+            'price' => $cart->cartItems()->sum('price'),
+            'address_id' => $address->first()->id ?? auth()->user()->addresses->pluck('id')->first(),
+        ]);
 
-        return response()->noContent();
+        $cart->cartItems->map(function ($orderItem) use ($order){
+            OrderItem::create([
+                'order_id' => $order->id,
+                'food_id' => $orderItem->food_id,
+                'price' => $orderItem->price,
+                'count' => $orderItem->count,
+            ]);
+        });
+
+        $cart->cartItems()->delete();
+        $cart->delete();
+
+        return response()->json(['message' => 'Your order has been registered!']);
     }
 }
