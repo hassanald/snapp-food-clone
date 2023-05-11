@@ -20,7 +20,6 @@ class CartResource extends JsonResource
             'id' => $this->id,
             'items' => CartItemResource::collection($this->whenLoaded('cartItems')),
             'restaurant' => RestaurantResource::make($this->whenLoaded('restaurant')),
-            'status' => OrderStatusResource::make($this->whenLoaded('status')),
         ];
     }
 }

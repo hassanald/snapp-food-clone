@@ -23,7 +23,7 @@ class StoreCartRequest extends FormRequest
     {
         return [
             'food_id' => 'required',
-            'count' => 'required|numeric',
+            'count' => 'required|numeric|min:1',
         ];
     }
 }

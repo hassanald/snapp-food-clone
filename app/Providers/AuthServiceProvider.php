@@ -41,6 +41,10 @@ class AuthServiceProvider extends ServiceProvider
             return $cart->user_id === $user->id;
         });
 
+        Gate::define('can-update-cart-item' , function ($user , $cart_item){
+            return $cart_item->cart->user_id === $user->id;
+        });
+
         Gate::define('can-view-cart' , function ($user , $cart){
             return $cart->user_id === $user->id;
         });

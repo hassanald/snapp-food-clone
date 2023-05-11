@@ -22,7 +22,6 @@ class CartController extends Controller
     {
         $carts = Cart::with('restaurant' , 'status' , 'cartItems.food.discount')
             ->where('user_id' , auth()->user()->id)
-            ->where('status_id' , OrderStatus::getUnpaidId())
             ->get();
         return CartResource::collection($carts);
     }
@@ -44,7 +43,7 @@ class CartController extends Controller
 
         $cart = Cart::where('user_id' , '=' , auth()->user()->id)
             ->where('restaurant_id' , '=' , $food->restaurant->id)
-            ->where('status_id' , OrderStatus::getUnpaidId())->first();
+            ->first();
 
         if ($cart &&
             $cartItem = CartItem::where('cart_id' , '=' , $cart->id)
@@ -75,7 +74,6 @@ class CartController extends Controller
         $cart = Cart::create([
             'user_id' => auth()->user()->id,
             'restaurant_id' => $food->restaurant->id,
-            'status_id' => OrderStatus::getUnpaidId(),
         ]);
 
         $cart->cartItems()->create([
@@ -96,7 +94,7 @@ class CartController extends Controller
     public function show(Cart $cart)
     {
         if (!Gate::allows('can-view-cart' ,  $cart )){
-            return response()->json(['message' => 'Forbidden'] , 403);
+            return response()->json(['message' => 'Forbidden'] , 401);
         }
         return CartResource::make($cart->load('restaurant' , 'status' , 'cartItems.food.discount'));
     }
@@ -112,13 +110,27 @@ class CartController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCartRequest $request, Cart $cart)
+    public function update(UpdateCartRequest $request, Cart $cart )
     {
         if (!Gate::allows('can-update-cart' ,  $cart )){
-            return response()->json(['message' => 'Forbidden'] , 403);
+            return response()->json(['message' => 'Forbidden'] , 401);
         }
 
-        $cart->cartItems()->update($request->validated());
+        $cartItem = CartItem::with('cart' , 'food')
+            ->where('food_id' , $request->validated('food_id'))->first();
+
+        if (!$cartItem){
+            return response()->json(['message' => 'Not Found'] , 404);
+        }
+
+        if ($cartItem->count + $request->validated('count') <= 0){
+            $cartItem->delete();
+            return response()->noContent();
+        }
+
+        $cartItem->update([
+            'count' => $cartItem->count += $request->validated('count')
+        ]);
         return response()->noContent();
     }
 
@@ -136,13 +148,7 @@ class CartController extends Controller
             return response()->json(['message' => 'Forbidden'] , 403);
         }
 
-        if ($cart->status_id !== OrderStatus::getUnpaidId()){
-            return response()->json(['message' => 'Bad request'] , 403);
-        }
 
-        $cart->update([
-            'status_id' => OrderStatus::getPendingId()
-        ]);
         return response()->noContent();
     }
 }
