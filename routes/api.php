@@ -40,5 +40,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/carts/{cart}' , [\App\Http\Controllers\Api\CartController::class , 'update']);
     Route::get('/carts/{cart}' , [\App\Http\Controllers\Api\CartController::class , 'show']);
     Route::put('/carts/{cart}/pay' , [\App\Http\Controllers\Api\CartController::class , 'pay']);
+    //Order
+    Route::get('/orders' , [\App\Http\Controllers\Api\OrderController::class , 'index']);
 
 });
