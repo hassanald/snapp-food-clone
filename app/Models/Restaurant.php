@@ -16,7 +16,18 @@ class Restaurant extends Model
 {
     use HasFactory;
 
-    protected $fillable = [ 'name' , 'phone' , 'address' , 'acc_number' , 'restaurant_category_id' , 'user_id' ];
+    protected $fillable = [
+        'name',
+        'phone',
+        'address',
+        'acc_number',
+        'restaurant_category_id',
+        'user_id',
+        'latitude',
+        'longitude',
+        'schedule',
+        'is_open',
+    ];
 
     protected function name(): Attribute
     {
