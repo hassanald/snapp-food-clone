@@ -37,4 +37,9 @@ class Cart extends Model
     {
         return $this->belongsTo(OrderStatus::class);
     }
+
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
