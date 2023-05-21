@@ -42,5 +42,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/carts/{cart}/pay' , [\App\Http\Controllers\Api\CartController::class , 'pay']);
     //Order
     Route::get('/orders' , [\App\Http\Controllers\Api\OrderController::class , 'index']);
+    //Comment
+    Route::post('/comments' , [\App\Http\Controllers\Api\CommentController::class , 'store']);
+    Route::get('/comments' , [\App\Http\Controllers\Api\CommentController::class , 'index']);
 
 });

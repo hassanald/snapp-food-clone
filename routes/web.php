@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\Category\RestaurantCategoryController;
 use App\Http\Controllers\Admin\Category\RestCategoryController;
 use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Seller\CommentController;
 use App\Http\Controllers\Seller\FoodController;
 use App\Http\Controllers\Seller\OrderController;
 use App\Http\Controllers\Seller\RestaurantController;
@@ -58,6 +59,7 @@ Route::middleware('auth' )->group(function () {
         //Discount
         Route::resource('/discount' , DiscountController::class);
     });
+
     //Seller
     Route::prefix('/seller')->middleware('role:'.Role::SELLER)->group(function (){
         Route::get('' , [SellerController::class , 'index'])->name('seller.index');
@@ -97,6 +99,12 @@ Route::middleware('auth' )->group(function () {
             ]
         ]);
         Route::put('/order/{order}/status' , [OrderController::class , 'changeStatus'])->name('seller.order.status');
+        //Comment
+        Route::get('/comments' , [CommentController::class , 'index'])->name('seller.comment.index');
+        Route::put('/comments/approve/{comment}' , [CommentController::class , 'approve'])->name('seller.comment.approve');
+        Route::put('/comments/pending/{comment}' , [CommentController::class , 'pending'])->name('seller.comment.pending');
+        Route::put('/comments/delete-req/{comment}' , [CommentController::class , 'deleteReq'])->name('seller.comment.deleteReq');
+        Route::put('/comments/response/{comment}' , [CommentController::class , 'response'])->name('seller.comment.response');
     });
 });
 

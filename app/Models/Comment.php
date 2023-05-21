@@ -10,11 +10,17 @@ class Comment extends Model
 {
     use HasFactory;
 
+    public const PENDING = 0;
+    public const APPROVE = 1;
+    public const DELETE_REQ = 2;
+
     protected $fillable = [
         'content',
         'answer',
+        'score',
         'user_id',
         'cart_id',
+        'status',
     ];
 
     public function cart(): BelongsTo

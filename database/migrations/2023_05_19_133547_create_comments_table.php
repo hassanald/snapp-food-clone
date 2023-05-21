@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('content');
             $table->string('answer')->nullable();
+            $table->integer('score');
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('cart_id')->constrained()->cascadeOnDelete();
             $table->softDeletes();

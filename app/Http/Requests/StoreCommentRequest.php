@@ -11,7 +11,7 @@ class StoreCommentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class StoreCommentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'cart_id' => 'required',
+            'score' => 'required|digits_between:0,5',
+            'content' => 'required',
         ];
     }
 }
