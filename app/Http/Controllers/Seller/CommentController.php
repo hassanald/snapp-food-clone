@@ -4,19 +4,25 @@ namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
+use App\Models\Restaurant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class CommentController extends Controller
 {
     public function index(){
+        $restaurants = Restaurant::where('user_id' , auth()->user()->id)->get();
         $comments = Comment::with('cart.restaurant','cart.cartItems.food' , 'user')
             ->where('deleted_at' , null)
             ->whereRelation('cart' , function ($query){
                 $query->whereRelation('restaurant' , 'user_id' , '=' , auth()->user()->id);
-            })->paginate(10);
+            })
+            ->when(\request()->filled('restaurant') , function ($query){
+                $query->whereRelation('cart.restaurant' , 'name' , 'LIKE' , \request('restaurant'));
+            })
+            ->paginate(10);
 
-        return view('seller.comment.index' , compact('comments'));
+        return view('seller.comment.index' , compact('comments' , 'restaurants'));
     }
 
     public function approve(Comment $comment){

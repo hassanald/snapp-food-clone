@@ -1,6 +1,21 @@
 <x-seller>
     <div class="bg-gray-200 shadow-xl w-full p-6 rounded-lg">
         <h2 class="text-xl mb-6 font-semibold">Comment lists</h2>
+        <div class="">
+            <form method="get">
+                <div class="mb-4">
+                    <select name="restaurant" class="border-gray-300 mt-1 focus:border-pink-500 focus:ring-pink-500 rounded-md shadow-sm">
+                        <option value="" disabled selected>Please select a Restaurant</option>
+                        @foreach($restaurants as $restaurant)
+                            <option value="{{$restaurant->name}}" <?= (request('restaurant') == $restaurant->name) ? 'selected' : '' ?>>
+                                {{ucfirst($restaurant->name)}}
+                            </option>
+                        @endforeach
+                    </select>
+                    <button type="submit" class="px-3 py-2 text-white bg-blue-600 rounded-lg">Filter</button>
+                </div>
+            </form>
+        </div>
         @if(count($comments) === 0)
             <p class="bg-white px-3 py-2 text-center rounded-lg font-semibold">There is no Comments!</p>
         @else
