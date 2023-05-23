@@ -58,6 +58,9 @@ Route::middleware('auth' )->group(function () {
         ]);
         //Discount
         Route::resource('/discount' , DiscountController::class);
+        //Comment
+        Route::get('/comments' , [\App\Http\Controllers\Admin\CommentController::class , 'index'])->name('admin.comment.index');
+        Route::delete('/comments/{comment}' , [\App\Http\Controllers\Admin\CommentController::class , 'destroy'])->name('admin.comment.delete');
     });
 
     //Seller
