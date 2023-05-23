@@ -1,10 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\Category\FoodCategoryController;
 use App\Http\Controllers\Admin\Category\RestaurantCategoryController;
-use App\Http\Controllers\Admin\Category\RestCategoryController;
 use App\Http\Controllers\Admin\DiscountController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Seller\CommentController;
 use App\Http\Controllers\Seller\FoodController;
 use App\Http\Controllers\Seller\OrderController;
@@ -35,7 +34,7 @@ Route::get('/', function () {
 Route::middleware('auth' )->group(function () {
     //Admin
     Route::prefix('/admin')->middleware('role:'. Role::ADMIN)->group(function (){
-        Route::get('' , [\App\Http\Controllers\Admin\AdminController::class , 'index'])->name('admin.index');
+        Route::get('' , [AdminController::class , 'index'])->name('admin.index');
         //Rest Category
         Route::resource('/category/restaurant' , RestaurantCategoryController::class , [
             'names' => [
@@ -61,6 +60,8 @@ Route::middleware('auth' )->group(function () {
         //Comment
         Route::get('/comments' , [\App\Http\Controllers\Admin\CommentController::class , 'index'])->name('admin.comment.index');
         Route::delete('/comments/{comment}' , [\App\Http\Controllers\Admin\CommentController::class , 'destroy'])->name('admin.comment.delete');
+        //Dashboard
+        Route::get('/dashboard' , [AdminController::class , 'index'])->name('admin.dashboard.index');
     });
 
     //Seller
