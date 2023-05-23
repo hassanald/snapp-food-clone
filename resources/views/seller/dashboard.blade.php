@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-seller>
     <div class="p-4">
         <h1 class="text-xl font-semibold mb-4">Dashboard</h1>
         <div class="grid grid-cols-6 gap-x-4 gap-y-4">
@@ -101,4 +101,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+</x-seller>

@@ -6,7 +6,7 @@
                 <form method="get">
                     <div class="mb-4">
                         <select  name="status" class="border-gray-300 mt-1 focus:border-pink-500 focus:ring-pink-500 rounded-md shadow-sm">
-                            <option value="" disabled selected>Please select a discount</option>
+                            <option value="" disabled selected>Please select a status</option>
                             @foreach($statuses as $status)
                                 <option value="{{$status->title}}" <?= (request('status') == $status->title) ? 'selected' : '' ?>>
                                     {{ucfirst($status->title)}}
