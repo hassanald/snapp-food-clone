@@ -22,12 +22,23 @@ class CommentController extends Controller
         ]);
 
         $comments = Comment::with('user' , 'cart.cartItems')
-            ->where('status' , Comment::APPROVE)
             ->when($request->filled('food_id') , function ($query) use ($request){
                 $query->whereRelation('cart.cartItems.food' , 'food_id' , '=' , $request->food_id);})
             ->when($request->filled('restaurant_id') , function ($query) use ($request){
-                $query->whereRelation('cart' , 'restaurant_id' , '=' , $request->restaurant_id);})
-            ->get();
+                $query->whereRelation('cart' , 'restaurant_id' , '=' , $request->restaurant_id);}
+            )->get();
+
+        $comments->each(function ($comment , $key) use ($comments){
+            if ($comment->user_id !== auth()->user()->id && $comment->status === Comment::PENDING){
+                $comments->forget($key);
+            }
+        });
+
+//                ->where('status' , Comment::APPROVE)
+//                ->when( === auth()->user()->id, function ($query){
+//                    $query->where('status' , Comment::PENDING);
+//                })
+//            ->get();
 
         return response()->json(['comments' => CommentResource::collection($comments)]);
     }
