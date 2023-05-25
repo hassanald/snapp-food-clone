@@ -54,10 +54,12 @@
                             </td>
                             <td class="px-6 py-4 flex justify-center gap-2">
                                 <a href="{{route('seller.setting.edit' , $restaurant->id)}}" class="bg-yellow-500 text-white px-3 py-2 rounded-lg">Edit</a>
-                                <form method="post" action="#">
+                                <form method="post" action="{{route('seller.setting.open' , $restaurant->id)}}">
                                     @method('put')
                                     @csrf
-                                    <button class="bg-gray-500 text-white px-3 py-2 rounded-lg">Close</button>
+                                    <button class="bg-{{$restaurant->is_open === 1 ? 'gray' : 'green'}}-500 text-white px-3 py-2 rounded-lg">
+                                        {{$restaurant->is_open === 1 ? 'Close' : 'Open'}}
+                                    </button>
                                 </form>
                                 <form method="post" action="#">
                                     @method('delete')

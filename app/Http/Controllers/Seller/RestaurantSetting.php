@@ -78,4 +78,12 @@ class RestaurantSetting extends Controller
 
         return redirect()->back()->with('success' , 'Updated successfully!');
     }
+
+    public function isOpen(Restaurant $restaurant){
+        $restaurant->update([
+            'is_open' => $restaurant->is_open === 1 ? 0 : 1
+        ]);
+
+        return redirect()->back()->with('success' , 'Updated successfully!');
+    }
 }
