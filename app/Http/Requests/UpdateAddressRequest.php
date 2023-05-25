@@ -24,8 +24,8 @@ class UpdateAddressRequest extends FormRequest
         return [
             'title' => 'nullable|string|min:3|max:20',
             'address' => 'nullable|string|min:5',
-            'latitude' => 'nullable|numeric',
-            'longitude' => 'nullable|numeric',
+//            'latitude' => 'nullable|numeric',
+//            'longitude' => 'nullable|numeric',
             'is_current' => 'nullable'
         ];
     }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Observers\AddressObserver;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -19,6 +20,11 @@ class Address extends Model
         'user_id',
         'is_current',
     ];
+
+    public static function booted():void
+    {
+        Address::observe(AddressObserver::class);
+    }
 
     public function user(): BelongsTo
     {

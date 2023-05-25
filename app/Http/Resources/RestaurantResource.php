@@ -21,6 +21,8 @@ class RestaurantResource extends JsonResource
             'address' => $this->address,
             'acc_number' => implode("-" , str_split($this->acc_number , 4)),
             'category' => CategoryResource::make($this->whenLoaded('category')),
+            'open' => $this->is_open === 1 ? 'Open' : 'Close',
+            'schedule' => json_decode($this->schedule , 5),
             'owner' => UserResource::make($this->whenLoaded('user'))
         ];
     }

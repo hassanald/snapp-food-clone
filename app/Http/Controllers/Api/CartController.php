@@ -154,6 +154,10 @@ class CartController extends Controller
         if (!Gate::allows('can-update-cart' ,  $cart )){
             return response()->json(['message' => 'Forbidden'] , 403);
         }
+        if (!$cart->restaurant->is_open){
+            return response()->json(['message' => 'Restaurant is not Open'] , 403);
+        }
+
         $address = auth()->user()->addresses->filter(fn($address) => $address->is_current === 1);
 
         $order = Order::create([
