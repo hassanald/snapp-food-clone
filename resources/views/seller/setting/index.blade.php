@@ -26,9 +26,6 @@
                         <th scope="col" class="px-6 py-3">
                             Category
                         </th>
-                        <th scope="col" class="px-6 py-3">
-                            Owner
-                        </th>
                         <th scope="col" class="text-center px-6 py-3">
                             Action
                         </th>
@@ -55,12 +52,18 @@
                             <td class="px-6 py-4">
                                 {{ $restaurant->category->title }}
                             </td>
-                            <td class="px-6 py-4">
-                                {{ $restaurant->user->name }}
-                            </td>
                             <td class="px-6 py-4 flex justify-center gap-2">
-                                <a href="{{route('seller.rest.edit' , $restaurant->id)}}" class="bg-yellow-500 text-white px-3 py-2 rounded-lg">Edit</a>
-                                <a href="{{route('seller.rest.foods' , $restaurant->id)}}" class="bg-blue-500 text-white px-3 py-2 rounded-lg">View Foods</a>
+                                <a href="{{route('seller.setting.edit' , $restaurant->id)}}" class="bg-yellow-500 text-white px-3 py-2 rounded-lg">Edit</a>
+                                <form method="post" action="#">
+                                    @method('put')
+                                    @csrf
+                                    <button class="bg-gray-500 text-white px-3 py-2 rounded-lg">Close</button>
+                                </form>
+                                <form method="post" action="#">
+                                    @method('delete')
+                                    @csrf
+                                    <button class="bg-red-500 text-white px-3 py-2 rounded-lg">Delete</button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach

@@ -8,6 +8,7 @@ use App\Http\Controllers\Seller\CommentController;
 use App\Http\Controllers\Seller\FoodController;
 use App\Http\Controllers\Seller\OrderController;
 use App\Http\Controllers\Seller\RestaurantController;
+use App\Http\Controllers\Seller\RestaurantSetting;
 use App\Http\Controllers\Seller\SellerController;
 use App\Models\Role;
 use Illuminate\Support\Facades\Route;
@@ -109,6 +110,10 @@ Route::middleware('auth' )->group(function () {
         Route::put('/comments/pending/{comment}' , [CommentController::class , 'pending'])->name('seller.comment.pending');
         Route::put('/comments/delete-req/{comment}' , [CommentController::class , 'deleteReq'])->name('seller.comment.deleteReq');
         Route::put('/comments/response/{comment}' , [CommentController::class , 'response'])->name('seller.comment.response');
+        //Restaurant Setting
+        Route::get('/settings' , [RestaurantSetting::class , 'index'])->name('seller.setting.index');
+        Route::get('/settings/{restaurant}/edit' , [RestaurantSetting::class , 'edit'])->name('seller.setting.edit');
+        Route::put('/settings/{restaurant}' , [RestaurantSetting::class , 'update'])->name('seller.setting.update');
     });
 });
 

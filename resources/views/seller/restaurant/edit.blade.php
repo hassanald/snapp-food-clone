@@ -2,7 +2,7 @@
     <div class="grid w-full gap-6">
         {{--Create--}}
         <div class="bg-gray-200 shadow-xl w-full p-6 rounded-lg">
-            <h2 class="text-xl font-semibold text-center">Create New Restaurant</h2>
+            <h2 class="text-xl font-semibold text-center">Edit Restaurant</h2>
             {{--Form--}}
             <form method="post" class="w-3/5 mx-auto" action="{{route('seller.rest.update' , $restaurant->id)}}">
                 @method('put')
