@@ -7,6 +7,7 @@ use App\Http\Requests\RestaurantSettingUpdateRequest;
 use App\Models\Restaurant;
 use App\Models\RestaurantCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class RestaurantSetting extends Controller
 {

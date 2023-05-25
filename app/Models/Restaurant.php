@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Observers\RestaurantObserver;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -16,7 +17,6 @@ class Restaurant extends Model
 {
     use HasFactory;
 
-
     protected $fillable = [
         'name',
         'phone',
@@ -29,6 +29,11 @@ class Restaurant extends Model
         'schedule',
         'is_open',
     ];
+
+    public static function booted(): void
+    {
+        Restaurant::observe(RestaurantObserver::class);
+    }
 
     protected function name(): Attribute
     {
