@@ -26,9 +26,7 @@ class AddressController extends Controller
     }
 
     public function update(UpdateAddressRequest $request , Address $address){
-        if ( Gate::allows('can-update-address' , $address )){
-            return response()->json(['message' => 'Forbidden'] , 403);
-        }
+        $this->authorize('update' , $address);
 
         $address->update($request->validated());
         return response()->json(['message' => 'Address Updated successfully!' , 'data' => AddressResource::make($address) ]);

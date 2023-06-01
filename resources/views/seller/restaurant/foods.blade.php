@@ -47,7 +47,12 @@
                                 {{ $food->raw_materials }}
                             </td>
                             <td class="px-6 py-4 flex">
-                                <p class="<?= $food->discount ? 'text-red-500' : '' ?>">{{$food->price }}$</p>@if($food->discount)|{{$food->price - $food->price * ($food->discount->discount_percent /100)}}$ @endif
+                                <p class="{{ $food->discount && $food->discount->expired_at > now() ? 'text-red-500' : '' }}">
+                                    {{$food->price }}$
+                                </p>
+                                @if($food->discount && $food->discount->expired_at > now())
+                                    |{{$food->price - $food->price * ($food->discount->discount_percent /100)}}$
+                                @endif
                             </td>
                             <td class="px-6 py-4">
                                 {{ $food->is_party ? 'Active' : 'Not active'}}

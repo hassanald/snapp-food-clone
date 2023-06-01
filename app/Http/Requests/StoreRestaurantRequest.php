@@ -24,7 +24,7 @@ class StoreRestaurantRequest extends FormRequest
     {
         return [
             'name' => 'required|unique:restaurants,name',
-            'phone' => ['required' , 'unique:restaurants,phone' , 'regex:/^[0-9]{9}/'],
+            'phone' => ['required' , 'unique:restaurants,phone' , 'regex:/^(021)([0-9]){8}$/'],
             'address' => 'required|min:10|max:100',
             'acc_number' => 'required|digits:16|unique:restaurants,acc_number',
             'restaurant_category_id' => 'required',

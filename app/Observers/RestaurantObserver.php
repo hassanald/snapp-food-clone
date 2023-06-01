@@ -16,8 +16,8 @@ class RestaurantObserver
             'Api-Key' => 'service.4917208be0f4431a83bc708aa3f01949',
         ])->accept('application/json')->get("https://api.neshan.org/v4/geocoding?address=$restaurant->address");
 
-        $restaurant->latitude = $response['location']['y'];
-        $restaurant->longitude = $response['location']['x'];
+        $restaurant->latitude = $response['location']['y'] ?? null;
+        $restaurant->longitude = $response['location']['x'] ?? null;
     }
 
     public function created(Restaurant $restaurant): void

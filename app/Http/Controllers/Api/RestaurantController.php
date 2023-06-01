@@ -25,7 +25,7 @@ class RestaurantController extends Controller
             ->when(\request()->filled('type') , function ($query){
                 $query->where('restaurant_category_id' , '=' , \request('type'));
             })
-            ->having('distance' , '<' , 20)
+            ->having('distance' , '<' , 10)
             ->orderBy('distance')
             ->get();
 

@@ -97,9 +97,8 @@ class CartController extends Controller
      */
     public function show(Cart $cart)
     {
-        if (!Gate::allows('can-view-cart' ,  $cart )){
-            return response()->json(['message' => 'Forbidden'] , 401);
-        }
+        $this->authorize('view' , $cart);
+
         return CartResource::make($cart->load('restaurant' , 'status' , 'cartItems.food.discount'));
     }
 
@@ -116,9 +115,7 @@ class CartController extends Controller
      */
     public function update(UpdateCartRequest $request, Cart $cart )
     {
-        if (!Gate::allows('can-update-cart' ,  $cart )){
-            return response()->json(['message' => 'Forbidden'] , 401);
-        }
+        $this->authorize('update' , $cart);
 
         $cartItem = CartItem::with('cart' , 'food')
             ->where('food_id' , $request->validated('food_id'))->first();
@@ -151,9 +148,8 @@ class CartController extends Controller
 
     public function pay(Cart $cart)
     {
-        if (!Gate::allows('can-update-cart' ,  $cart )){
-            return response()->json(['message' => 'Forbidden'] , 403);
-        }
+        $this->authorize('update' , $cart);
+
         if (!$cart->restaurant->is_open){
             return response()->json(['message' => 'Restaurant is not Open'] , 403);
         }

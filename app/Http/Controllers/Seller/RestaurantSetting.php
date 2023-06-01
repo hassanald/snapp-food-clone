@@ -86,4 +86,9 @@ class RestaurantSetting extends Controller
 
         return redirect()->back()->with('success' , 'Updated successfully!');
     }
+
+    public function destroy(Restaurant $restaurant){
+        $restaurant->delete();
+        return redirect()->back()->with('success' , 'Deleted successfully!');
+    }
 }

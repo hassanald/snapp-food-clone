@@ -115,6 +115,7 @@ Route::middleware('auth' )->group(function () {
         Route::get('/settings/{restaurant}/edit' , [RestaurantSetting::class , 'edit'])->name('seller.setting.edit');
         Route::put('/settings/{restaurant}' , [RestaurantSetting::class , 'update'])->name('seller.setting.update');
         Route::put('/settings/{restaurant}/is-open' , [RestaurantSetting::class , 'isOpen'])->name('seller.setting.open');
+        Route::delete('/settings/{restaurant}/delete' , [RestaurantSetting::class , 'destroy'])->name('seller.setting.destroy');
     });
 });
 

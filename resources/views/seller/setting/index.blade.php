@@ -61,7 +61,7 @@
                                         {{$restaurant->is_open === 1 ? 'Close' : 'Open'}}
                                     </button>
                                 </form>
-                                <form method="post" action="#">
+                                <form method="post" action="{{route('seller.setting.destroy' , $restaurant->id)}}">
                                     @method('delete')
                                     @csrf
                                     <button class="bg-red-500 text-white px-3 py-2 rounded-lg">Delete</button>
